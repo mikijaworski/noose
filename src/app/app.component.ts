@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss']
 })
+
 export class AppComponent implements OnInit {
   public selectedIndex = 0;
   public appPages = [

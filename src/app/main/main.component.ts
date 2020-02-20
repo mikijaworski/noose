@@ -8,7 +8,8 @@ import { Component, OnInit } from '@angular/core';
 export class MainComponent implements OnInit {
 
   tests: any[] = [
-    {title: 'Remember numbers', path: '/test/numbers'}
+    {title: 'Remember numbers', path: '/test/numbers'},
+    {title: 'Remember reaccio', path: '/test/reaccio'}
   ]
 
   constructor() { }
