@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { AuthenticationService } from './services/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -21,13 +23,20 @@ export class AppComponent implements OnInit {
       title: 'Login',
       url: '/login',
       icon: 'paper-plane'
+    },
+    {
+      title: 'Register',
+      url: '/register',
+      icon: 'paper-plane'
     }
   ];
 
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private _authService: AuthenticationService,
+    private _router: Router
   ) {
     this.initializeApp();
   }
@@ -40,9 +49,14 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    const path = window.location.pathname.split('folder/')[1];
-    if (path !== undefined) {
-      this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
-    }
+    // const path = window.location.pathname.split('folder/')[1];
+    // if (path !== undefined) {
+    //   this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
+    // }
+
+    // if (this._authService.getCurrentUser() === null) {
+    //   this._router.navigate(['/login']);
+    // }
+
   }
 }
