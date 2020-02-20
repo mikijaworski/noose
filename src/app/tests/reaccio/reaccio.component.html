@@ -1,0 +1,27 @@
+<ion-content>
+  <h1>Reaction time test</h1>
+  <p>When the red box turns green, click as quickly as you can.</p>
+  <p>Click anywhere to start.</p>
+  <!-- <h2>Actual Level {{level}}</h2> -->
+
+  <!-- <div *ngIf="hasStarted && level <= numberGameOver">
+    <p *ngIf="!numberDisapear">{{randomNumber}}</p>
+    <ion-input type="tel" *ngIf="numberDisapear" [(ngModel)]="enteredNumber"></ion-input>
+    <button type="button" class="btn btn-sm m-2" [ngClass]="{ greenClass: encendi, redClass: !encendi}" >POWER</button>
+  </div>
+
+  <div *ngIf="gameOver">
+    <h1>GAME OVER</h1>
+    <ion-button (click)="Reset()">Reset</ion-button>
+  </div>
+
+  <div *ngIf="!gameOver">
+    <ion-button (click)="StartLevel()" ng-hide="formVisibility">Start Game</ion-button>
+    <ion-button (click)="Check()" *ngIf="numberDisapear">Check</ion-button>
+  </div> -->
+
+  <ion-button (click)="ShowForm()" ng-hide="formVisibility">Start Game</ion-button>
+  <div ng-show="formVisibility" clas="wrapper">
+    <h2>PULSE AQUI MANIQUI</h2>
+  </div>
+</ion-content>

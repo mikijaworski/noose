@@ -15,6 +15,10 @@ const routes: Routes = [
     loadChildren: () => import('./tests/numbers/numbers.module').then( m => m.NumbersModule)
   },
   {
+    path: 'test/reaccio',
+    loadChildren: () => import('./tests/reaccio/reaccio.module').then( m => m.ReaccioModule)
+  },
+  {
     path: '**',
     redirectTo: 'main'
   }

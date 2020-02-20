@@ -1,0 +1,7 @@
+Boto per començar el joc
+Un cop apretat el boto mostrar pantalla vermella
+Fer servir un random per cambiar entre la vermella i la verda
+Un cop surt la verda fer un interval detemps
+Apretar la pantalla verda i guardar el temps de l'interval
+
+Comparar els clicks del boto amb el maxim per acabar el joc
