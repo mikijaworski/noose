@@ -1,0 +1,22 @@
+<ion-content>
+  <h1>Remember the numbers</h1>
+  <p>Try to remember and then writing the most numbers you can.</p>
+
+  <h2>Actual Level {{level}}</h2>
+
+  <div *ngIf="hasStarted && !gameOver">
+    <p *ngIf="!numberDisapear">{{randomNumber}}</p>
+    <ion-input type="tel" *ngIf="numberDisapear" [(ngModel)]="enteredNumber"></ion-input>
+  </div>
+
+  <div *ngIf="gameOver">
+    <h1>GAME OVER</h1>
+    <ion-button (click)="Reset()">Reset</ion-button>
+  </div>
+
+  <div *ngIf="!gameOver">
+    <ion-button (click)="StartLevel()" disabled="{{startDisabled}}">Start</ion-button>
+    <ion-button (click)="Check()" *ngIf="numberDisapear">Check</ion-button>
+  </div>
+
+</ion-content>

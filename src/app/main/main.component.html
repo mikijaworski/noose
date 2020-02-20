@@ -1,0 +1,17 @@
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>List of available tests</ion-card-title>
+      <!-- <ion-card-subtitle>List of the</ion-card-subtitle> -->
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let test of tests" [routerLink]="[test.path]">
+          <ion-label>{{test.title}}</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

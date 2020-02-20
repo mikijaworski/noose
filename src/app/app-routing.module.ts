@@ -3,13 +3,20 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: '',
-    redirectTo: 'folder/Inbox',
-    pathMatch: 'full'
+    path: 'main',
+    loadChildren: () => import('./main/main.module').then( m => m.MainModule)
   },
   {
-    path: 'folder/:id',
-    loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginModule)
+  },
+  {
+    path: 'test/numbers',
+    loadChildren: () => import('./tests/numbers/numbers.module').then( m => m.NumbersModule)
+  },
+  {
+    path: '**',
+    redirectTo: 'main'
   }
 ];
 
