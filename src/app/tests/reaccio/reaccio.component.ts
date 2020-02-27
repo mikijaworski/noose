@@ -12,63 +12,44 @@ export class ReaccioComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {}
-
-  // level: number = 1;
   randomNumber: string;
-  enteredNumber: string;
-
-  hasStarted: boolean  = false;
-  windowRed: boolean = false;
-  windowGreen: boolean = false;
+  hasError: boolean = false;
+  NumParty: number = 0;
+  MaxParty: number = 5;
+  Timer: any;
+  ContadorIntervals: number = 0;
+  IncrementaContador: number = 0;
   gameOver: boolean = false;
-  numberGameOver: number = 5;
-
-  // NextLevel() {
-  //   this.level++;
-  //   this.enteredNumber = null;
-  //   this.hasStarted = false;
-  //   this.windowRed = false;
-  // }
+  resultat: number = 0;
 
   StartLevel() {
-    this.hasStarted = true;
-
-    // let str = '';
-
-      let number = Math.trunc(Math.random() * 4);
-
-      setTimeout(() => {
-      this.windowGreen = true;
-      this.windowRed = false;
-    }, number);
-
-    //   str += number;
-    // this.randomNumber = str;
-    
+      let number = Math.trunc(Math.random() * 4000);
+      this.NumParty++;
+      setTimeout(() => {  
+      this.hasError = true;
+      this.Timer = setInterval(() => {
+        this.ContadorIntervals++;
+      }, 1);  
+    }, number);    
 
   }
 
-  Check() {
-    console.log(this.randomNumber, this.enteredNumber)
-      this.windowGreen = false;
-    if (this.randomNumber === this.enteredNumber) {
-      this.NextLevel();
+  
+  IntervalCount() {
+    clearInterval(this.Timer);
+    this.IncrementaContador += this.ContadorIntervals;
+    console.log(this.ContadorIntervals);
+    this.ContadorIntervals = 0;
+    if(this.NumParty < this.MaxParty) {
+      this.hasError = false;
+      this.StartLevel();
     } else {
       this.gameOver = true;
+      this.resultat = Math.trunc(this.IncrementaContador / this.MaxParty);
     }
   }
   
-  NextLevel() {
-    throw new Error("Method not implemented.");
-  }
 
-  Reset() {
-    this.level = 1;
-    this.enteredNumber = null;
-    this.hasStarted = false;
-    this.windowRed = true;
-    this.gameOver = false;
-  }
 
   formVisibility: boolean = false;
 
