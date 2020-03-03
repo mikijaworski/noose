@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { NumbersService } from './numbers.service';
 
 @Component({
   selector: 'app-numbers',
   templateUrl: './numbers.component.html',
   styleUrls: ['./numbers.component.scss'],
 })
+
 export class NumbersComponent implements OnInit {
+
+  authUser: boolean = false;
 
   level: number = 1;
   randomNumber: string;
@@ -15,10 +19,16 @@ export class NumbersComponent implements OnInit {
   numberDisapear: boolean = false;
   startDisabled: boolean = false;
   gameOver: boolean = false;
+  hasUpload: boolean = false;
 
-  constructor() { }
+  constructor(
+    private _numbersService: NumbersService
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this._numbersService.checkUserLogged();
+    this.authUser = this._numbersService.authUser;
+  }
 
   NextLevel() {
     this.level++;
@@ -50,9 +60,17 @@ export class NumbersComponent implements OnInit {
       this.startDisabled = false;
     if (this.randomNumber === this.enteredNumber) {
       this.NextLevel();
+      this._numbersService.OpenSnackbar('You guessed the number!');
     } else {
       this.gameOver = true;
+      this._numbersService.OpenSnackbar('You failed the number!');
     }
+  }
+
+  Upload() {
+    console.log('uploading')
+    this.hasUpload = true;
+    this._numbersService.UploadProgress(this.level);
   }
 
   Reset() {
@@ -61,6 +79,7 @@ export class NumbersComponent implements OnInit {
     this.hasStarted = false;
     this.numberDisapear = false;
     this.gameOver = false;
+    this.hasUpload = false;
   }
 
 }

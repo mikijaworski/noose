@@ -1,22 +1,27 @@
-<ion-content>
-  <h1>Remember the numbers</h1>
-  <p>Try to remember and then writing the most numbers you can.</p>
+<app-menu title="Remember the numbers"></app-menu>
+<ion-content class="ion-text-center">
 
-  <h2>Actual Level {{level}}</h2>
+  <p>Try to remember and then write the most numbers you can.</p>
 
-  <div *ngIf="hasStarted && !gameOver">
-    <p *ngIf="!numberDisapear">{{randomNumber}}</p>
-    <ion-input type="tel" *ngIf="numberDisapear" [(ngModel)]="enteredNumber"></ion-input>
+  <p>Actual Level {{level}}</p>
+
+  <div *ngIf="!gameOver">
+    <div *ngIf="hasStarted">
+      <p *ngIf="!numberDisapear">{{randomNumber}}</p>
+      <ion-input type="tel" *ngIf="numberDisapear" [(ngModel)]="enteredNumber"></ion-input>
+    </div>
+
+    <ion-button (click)="StartLevel()" *ngIf="!hasStarted" disabled="{{startDisabled}}">Start</ion-button>
+    <ion-button (click)="Check()" *ngIf="numberDisapear">Check</ion-button>
   </div>
 
   <div *ngIf="gameOver">
     <h1>GAME OVER</h1>
     <ion-button (click)="Reset()">Reset</ion-button>
+
+    <ion-button (click)="Upload()" disabled="{{hasUpload}}" *ngIf="authUser">Upload</ion-button>
   </div>
 
-  <div *ngIf="!gameOver">
-    <ion-button (click)="StartLevel()" disabled="{{startDisabled}}">Start</ion-button>
-    <ion-button (click)="Check()" *ngIf="numberDisapear">Check</ion-button>
-  </div>
+  <ion-button>Ranking</ion-button>
 
 </ion-content>

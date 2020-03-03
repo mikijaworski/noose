@@ -4,14 +4,13 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { LoginComponent } from './login.component';
+import { LogoutComponent } from './logout.component';
 import { Routes, RouterModule } from '@angular/router';
-import { MenuModule } from '../@shared/menu/menu.module';
 
 const routes: Routes = [
   {
     path: '**',
-    component: LoginComponent
+    component: LogoutComponent
   }
 ];
 
@@ -20,9 +19,8 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     CommonModule,
     FormsModule,
-    IonicModule,
-    MenuModule
+    IonicModule
   ],
-  declarations: [LoginComponent]
+  declarations: [LogoutComponent]
 })
-export class LoginModule {}
+export class LogoutModule {}

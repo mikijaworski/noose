@@ -16,19 +16,28 @@ export class AppComponent implements OnInit {
   public selectedIndex = 0;
   public appPages = [
     {
-      title: 'Main page',
+      title: 'Test list',
       url: '/',
-      icon: 'mail'
+      icon: 'mail',
+      show: true
     },
     {
       title: 'Login',
       url: '/login',
-      icon: 'paper-plane'
+      icon: 'paper-plane',
+      show: true
+    },
+    {
+      title: 'Logout',
+      url: '/logout',
+      icon: 'paper-plane',
+      show: true
     },
     {
       title: 'Register',
       url: '/register',
-      icon: 'paper-plane'
+      icon: 'paper-plane',
+      show: true
     }
   ];
 
@@ -55,9 +64,9 @@ export class AppComponent implements OnInit {
     //   this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
     // }
 
-    // if (this._authService.getCurrentUser() === null) {
-    //   this._router.navigate(['/login']);
-    // }
+    if (this._authService.isUserRegistered()) {
+      this.appPages[1].show = false;
+    }
 
   }
 }

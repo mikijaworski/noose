@@ -12,7 +12,8 @@ export class MainComponent implements OnInit {
     {title: 'Remember reaccio', path: '/test/reaccio'}
   ]
 
-  constructor() { }
+  constructor(
+  ) { }
 
   ngOnInit() {}
 

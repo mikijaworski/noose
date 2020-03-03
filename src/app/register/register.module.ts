@@ -6,6 +6,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { RegisterComponent } from './register.component';
 import { Routes, RouterModule } from '@angular/router';
+import { MenuModule } from '../@shared/menu/menu.module';
 
 const routes: Routes = [
   {
@@ -19,7 +20,8 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     CommonModule,
     FormsModule,
-    IonicModule
+    IonicModule,
+    MenuModule
   ],
   declarations: [RegisterComponent]
 })
