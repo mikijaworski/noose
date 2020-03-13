@@ -25,6 +25,10 @@ const routes: Routes = [
   {
     path: 'test/reaccio',
     loadChildren: () => import('./tests/reaccio/reaccio.module').then( m => m.ReaccioModule)
+  }, 
+  {
+    path: 'ranking',
+    loadChildren: () => import('./rankings/rankings.module').then( m => m.RankingsModule)
   },
   {
     path: '**',
