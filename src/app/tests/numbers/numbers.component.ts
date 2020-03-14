@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NumbersService } from './numbers.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-numbers',
@@ -22,7 +23,8 @@ export class NumbersComponent implements OnInit {
   hasUpload: boolean = false;
 
   constructor(
-    private _numbersService: NumbersService
+    private _numbersService: NumbersService,
+    private router: Router
   ) { }
 
   ngOnInit() {

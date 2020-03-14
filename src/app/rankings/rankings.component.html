@@ -1,0 +1,17 @@
+<table class="table table-striped">
+  <tr>
+    <th>
+        ID usuari
+    </th>
+    <th>
+        Nivell
+    </th>
+  </tr>
+  <tr **ngFor="let item of Usuaris; let i = index">
+    <td>
+        {{i}} - {{item.user_iduser}}
+    </td>
+    <td>
+      {{i}} - {{item.level}}
+  </td>
+  </tr>
