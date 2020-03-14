@@ -4,27 +4,27 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: 'main',
-    loadChildren: () => import('./main/main.module').then( m => m.MainModule)
+    loadChildren: './main/main.module#MainModule'
   },
   {
     path: 'login',
-    loadChildren: () => import('./login/login.module').then( m => m.LoginModule)
+    loadChildren: './login/login.module#LoginModule'
   },
   {
     path: 'logout',
-    loadChildren: () => import('./authentication/logout/logout.module').then( m => m.LogoutModule)
+    loadChildren: './authentication/logout/logout.module#LogoutModule'
   },
   {
     path: 'register',
-    loadChildren: () => import('./register/register.module').then( m => m.RegisterModule)
+    loadChildren: './register/register.module#RegisterModule'
   },
   {
     path: 'test/numbers',
-    loadChildren: () => import('./tests/numbers/numbers.module').then( m => m.NumbersModule)
+    loadChildren: './tests/numbers/numbers.module#NumbersModule'
   },
   {
     path: 'test/reaccio',
-    loadChildren: () => import('./tests/reaccio/reaccio.module').then( m => m.ReaccioModule)
+    loadChildren: './tests/reaccio/reaccio.module#ReaccioModule'
   },
   {
     path: '**',

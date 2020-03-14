@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AuthenticationService } from './services/authentication.service';
 import { Router } from '@angular/router';
+import { AppService } from './app.service';
 
 @Component({
   selector: 'app-root',
@@ -14,34 +15,10 @@ import { Router } from '@angular/router';
 
 export class AppComponent implements OnInit {
   public selectedIndex = 0;
-  public appPages = [
-    {
-      title: 'Test list',
-      url: '/',
-      icon: 'mail',
-      show: true
-    },
-    {
-      title: 'Login',
-      url: '/login',
-      icon: 'paper-plane',
-      show: true
-    },
-    {
-      title: 'Logout',
-      url: '/logout',
-      icon: 'paper-plane',
-      show: true
-    },
-    {
-      title: 'Register',
-      url: '/register',
-      icon: 'paper-plane',
-      show: true
-    }
-  ];
+  public appPages;
 
   constructor(
+    private _appService: AppService,
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
@@ -49,6 +26,8 @@ export class AppComponent implements OnInit {
     private _router: Router
   ) {
     this.initializeApp();
+
+    this.appPages = [];
   }
 
   initializeApp() {
@@ -64,9 +43,69 @@ export class AppComponent implements OnInit {
     //   this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
     // }
 
-    if (this._authService.isUserRegistered()) {
-      this.appPages[1].show = false;
-    }
+    this._appService.onAppPagesChanged
+        .subscribe((logged: boolean) => {
+          console.log(logged)
+          if (logged) {
+              this.appPages = [
+                {
+                  title: 'Test list',
+                  url: '/',
+                  icon: 'mail',
+                  show: true
+                },
+                // {
+                //   title: 'Login',
+                //   url: '/login',
+                //   icon: 'paper-plane',
+                //   show: true
+                // },
+                {
+                  title: 'Logout',
+                  url: '/logout',
+                  icon: 'paper-plane',
+                  show: true
+                },
+                // {
+                //   title: 'Register',
+                //   url: '/register',
+                //   icon: 'paper-plane',
+                //   show: true
+                // }
+              ];
+          } else {
+            this.appPages = [
+              {
+                title: 'Test list',
+                url: '/',
+                icon: 'mail',
+                show: true
+              },
+              {
+                title: 'Login',
+                url: '/login',
+                icon: 'paper-plane',
+                show: true
+              },
+              // {
+              //   title: 'Logout',
+              //   url: '/logout',
+              //   icon: 'paper-plane',
+              //   show: true
+              // },
+              {
+                title: 'Register',
+                url: '/register',
+                icon: 'paper-plane',
+                show: true
+              }
+            ];
+          }
+        });
+
+    setTimeout(() => {
+      this._appService.onAppPagesChanged.next(localStorage.getItem('currentUser') !== null);
+    }, 500);
 
   }
 }

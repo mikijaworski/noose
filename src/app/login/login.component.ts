@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../services/authentication.service';
 import { Router } from '@angular/router';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +15,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private _authService: AuthenticationService,
+    private _appService: AppService,
     private _router: Router
   ) { }
 
@@ -21,7 +23,10 @@ export class LoginComponent implements OnInit {
 
   onLogin() {
     if(this._authService.onLogin(this.email, this.password)) {
-      this._router.navigate(['/main']);
+      this._appService.onAppPagesChanged.next(true);
+      setTimeout(() => {
+        this._router.navigate(['/main']);
+      }, 100);
     }
   }
 

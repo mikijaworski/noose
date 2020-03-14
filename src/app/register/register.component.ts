@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../services/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -13,7 +14,8 @@ export class RegisterComponent implements OnInit {
   name: string;
 
   constructor(
-    private _authService: AuthenticationService
+    private _authService: AuthenticationService,
+    private _router: Router
   ) { }
 
   ngOnInit() {
@@ -21,9 +23,10 @@ export class RegisterComponent implements OnInit {
   }
 
   onRegister() {
-    console.log('mierda')
     let form = {email: this.email, password: this.password, name: this.name};
-    this._authService.onRegister(form);
+    if (this._authService.onRegister(form)) {
+      this._router.navigate(['/main']);
+    }
   }
 
 }

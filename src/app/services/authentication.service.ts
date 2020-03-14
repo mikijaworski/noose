@@ -50,14 +50,18 @@ export class AuthenticationService {
         return b;
   }
 
-  onRegister(body: any) {
+  async onRegister(body: any) {
     let url = environment.api + '/register';
+    let b: boolean = false;
 
     this._httpClient.post(url, body)
         .subscribe((result: any) => {
           console.log(result)
           localStorage.setItem('currentUser', JSON.stringify({iduser: result.insertId, email: body.email}));
+          b = true;
         })
+
+        return b;
   }
 
   onLogout(): boolean {
