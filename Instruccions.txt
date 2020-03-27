@@ -1,0 +1,10 @@
+- Instalar "xamp"
+- Importar base de dades (fitxer noose-db)
+
+- cd noose-api
+- npm install
+- node server.js
+- obrir un altre cmd
+- cd noose-app
+- npm install
+- ionic serve --lab
