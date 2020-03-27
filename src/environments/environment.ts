@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  api: 'https://noose-api.herokuapp.com'
+  api: 'http://localhost:3000'
 };
 
 /*

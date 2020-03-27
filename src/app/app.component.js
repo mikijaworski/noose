@@ -8,40 +8,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 exports.__esModule = true;
 var core_1 = require("@angular/core");
 var AppComponent = /** @class */ (function () {
-    function AppComponent(platform, splashScreen, statusBar, _authService, _router) {
+    function AppComponent(_appService, platform, splashScreen, statusBar, _authService, _router) {
+        this._appService = _appService;
         this.platform = platform;
         this.splashScreen = splashScreen;
         this.statusBar = statusBar;
         this._authService = _authService;
         this._router = _router;
         this.selectedIndex = 0;
-        this.appPages = [
-            {
-                title: 'Test list',
-                url: '/',
-                icon: 'mail',
-                show: true
-            },
-            {
-                title: 'Login',
-                url: '/login',
-                icon: 'paper-plane',
-                show: true
-            },
-            {
-                title: 'Logout',
-                url: '/logout',
-                icon: 'paper-plane',
-                show: true
-            },
-            {
-                title: 'Register',
-                url: '/register',
-                icon: 'paper-plane',
-                show: true
-            }
-        ];
         this.initializeApp();
+        this.appPages = [];
     }
     AppComponent.prototype.initializeApp = function () {
         var _this = this;
@@ -55,9 +31,64 @@ var AppComponent = /** @class */ (function () {
         // if (path !== undefined) {
         //   this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
         // }
-        if (this._authService.isUserRegistered()) {
-            this.appPages[1].show = false;
-        }
+        var _this = this;
+        this._appService.onAppPagesChanged
+            .subscribe(function (logged) {
+            console.log(logged);
+            if (logged) {
+                _this.appPages = [
+                    {
+                        title: 'Test list',
+                        url: '/',
+                        icon: 'mail',
+                        show: true
+                    },
+                    // {
+                    //   title: 'Login',
+                    //   url: '/login',
+                    //   icon: 'paper-plane',
+                    //   show: true
+                    // },
+                    {
+                        title: 'Logout',
+                        url: '/logout',
+                        icon: 'paper-plane',
+                        show: true
+                    },
+                ];
+            }
+            else {
+                _this.appPages = [
+                    {
+                        title: 'Test list',
+                        url: '/',
+                        icon: 'mail',
+                        show: true
+                    },
+                    {
+                        title: 'Login',
+                        url: '/login',
+                        icon: 'paper-plane',
+                        show: true
+                    },
+                    // {
+                    //   title: 'Logout',
+                    //   url: '/logout',
+                    //   icon: 'paper-plane',
+                    //   show: true
+                    // },
+                    {
+                        title: 'Register',
+                        url: '/register',
+                        icon: 'paper-plane',
+                        show: true
+                    }
+                ];
+            }
+        });
+        setTimeout(function () {
+            _this._appService.onAppPagesChanged.next(localStorage.getItem('currentUser') !== null);
+        }, 500);
     };
     AppComponent = __decorate([
         core_1.Component({

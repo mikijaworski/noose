@@ -8,8 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 exports.__esModule = true;
 var core_1 = require("@angular/core");
 var NumbersComponent = /** @class */ (function () {
-    function NumbersComponent(_numbersService) {
+    function NumbersComponent(_numbersService, router) {
         this._numbersService = _numbersService;
+        this.router = router;
         this.authUser = false;
         this.level = 1;
         this.hasStarted = false;
@@ -21,6 +22,7 @@ var NumbersComponent = /** @class */ (function () {
     NumbersComponent.prototype.ngOnInit = function () {
         this._numbersService.checkUserLogged();
         this.authUser = this._numbersService.authUser;
+        this.maxTime = 2000;
     };
     NumbersComponent.prototype.NextLevel = function () {
         this.level++;
@@ -41,7 +43,7 @@ var NumbersComponent = /** @class */ (function () {
         setTimeout(function () {
             _this.startDisabled = true;
             _this.numberDisapear = true;
-        }, 2000);
+        }, this.maxTime);
     };
     NumbersComponent.prototype.Check = function () {
         console.log(this.randomNumber, this.enteredNumber);

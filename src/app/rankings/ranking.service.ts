@@ -7,27 +7,23 @@ import { HttpClient } from '@angular/common/http';
 })
 export class RankingService {
 
-  Usuaris: Array<any>;
-
   constructor(
-    private _httpClient: HttpClient,
-  ) {    
-    
-  }
+    private _httpClient: HttpClient
+  ) { }
 
-  UploadProgress(level: number) {
+  getRanking(handle: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      let url = environment.api + '/' + handle + '/ranking';
 
-    let url = environment.api + '/numbers/add';
-    let iduser = JSON.parse(localStorage.getItem('currentUser')).iduser;
-
-    this._httpClient.post(url, {level: level, user_iduser: iduser})
-        .subscribe((result: any) => {
-          console.log(result)
-          if (result.code === 1) {
-            console.log('level added')
-            this.Usuaris = result.rows; 
-            // this.OpenSnackbar('Progress has been saved!');
-          }
-        })
+      this._httpClient.get(url)
+          .subscribe((result: any) => {
+            // console.log(result.rows)
+            let ranking = [];
+            if (result.code === 1) {
+              ranking = result.rows;
+            }
+            resolve(ranking);
+          })
+    })
 }
 }

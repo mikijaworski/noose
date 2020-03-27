@@ -8,14 +8,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 exports.__esModule = true;
 var core_1 = require("@angular/core");
 var LogoutComponent = /** @class */ (function () {
-    function LogoutComponent(_authService, _router) {
+    function LogoutComponent(_authService, _appService, _router) {
         this._authService = _authService;
+        this._appService = _appService;
         this._router = _router;
     }
     LogoutComponent.prototype.ngOnInit = function () {
+        var _this = this;
         if (this._authService.onLogout()) {
-            this._router.navigate(['/main']);
-            console.log('logged out');
+            this._appService.onAppPagesChanged.next(false);
+            setTimeout(function () {
+                _this._router.navigate(['/main']);
+            }, 100);
         }
     };
     LogoutComponent = __decorate([

@@ -8,14 +8,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 exports.__esModule = true;
 var core_1 = require("@angular/core");
 var LoginComponent = /** @class */ (function () {
-    function LoginComponent(_authService, _router) {
+    function LoginComponent(_authService, _appService, _router) {
         this._authService = _authService;
+        this._appService = _appService;
         this._router = _router;
     }
     LoginComponent.prototype.ngOnInit = function () { };
     LoginComponent.prototype.onLogin = function () {
+        var _this = this;
         if (this._authService.onLogin(this.email, this.password)) {
-            this._router.navigate(['/main']);
+            this._appService.onAppPagesChanged.next(true);
+            setTimeout(function () {
+                _this._router.navigate(['/main']);
+            }, 100);
         }
     };
     LoginComponent = __decorate([

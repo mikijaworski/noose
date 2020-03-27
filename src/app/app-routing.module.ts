@@ -24,11 +24,11 @@ const routes: Routes = [
   },
   {
     path: 'test/reaccio',
-    loadChildren: () => import('./tests/reaccio/reaccio.module').then( m => m.ReaccioModule)
+    loadChildren: './tests/reaccio/reaccio.module#ReaccioModule'
   },
   {
-    path: 'ranking',
-    loadChildren: () => import('./rankings/rankings.module').then( m => m.RankingsModule)
+    path: 'ranking/:handle/:field',
+    loadChildren: './rankings/rankings.module#RankingsModule'
   },
   {
     path: '**',

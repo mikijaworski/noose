@@ -1,21 +1,35 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RankingService } from './ranking.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-rankings',
   templateUrl: './rankings.component.html',
   styleUrls: ['./rankings.component.scss'],
 })
+
 export class RankingsComponent implements OnInit {
 
-  Usuaris: Array<any>;
+  ranking: any[] = [];
+  field: string;
+  handle: string;
 
   constructor(
-    private rankingService:RankingService
+    private _activatedRoute: ActivatedRoute,
+    private _rankingService: RankingService
   ) {
-    this.Usuaris = this.rankingService.Usuaris
+
    }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.field = this._activatedRoute.snapshot.paramMap.get('field');
+    this.handle = this._activatedRoute.snapshot.paramMap.get('handle');
+    this._rankingService.getRanking(this.handle)
+        .then(list => {
+          this.ranking = list;
+          // console.log(this.ranking)
+        })
+        .catch(err => console.log(err));
+  }
 
 }

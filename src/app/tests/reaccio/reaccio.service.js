@@ -43,72 +43,50 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 var core_1 = require("@angular/core");
 var environment_1 = require("src/environments/environment");
-var AuthenticationService = /** @class */ (function () {
-    function AuthenticationService(_httpClient) {
+var ReaccioService = /** @class */ (function () {
+    function ReaccioService(_httpClient, _toastController, _authService) {
         this._httpClient = _httpClient;
-        this.currentUser = null;
+        this._toastController = _toastController;
+        this._authService = _authService;
     }
-    AuthenticationService.prototype.getCurrentUser = function () {
-        if (localStorage.getItem('currentUser') !== null) {
-            this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        }
-        else {
-            this.currentUser = null;
-        }
-        return this.currentUser;
+    ReaccioService.prototype.UploadProgress = function (time) {
+        var _this = this;
+        var url = environment_1.environment.api + '/reaccio/add';
+        var iduser = JSON.parse(localStorage.getItem('currentUser')).iduser;
+        this._httpClient.post(url, { temps: time, user_iduser: iduser })
+            .subscribe(function (result) {
+            console.log(result);
+            if (result.code === 1) {
+                console.log('level added');
+                _this.OpenSnackbar('Progress has been saved!');
+            }
+        });
     };
-    AuthenticationService.prototype.isUserRegistered = function () {
-        // console.log(localStorage.getItem('currentUser'))
-        return localStorage.getItem('currentUser') !== null;
+    ReaccioService.prototype.checkUserLogged = function () {
+        this.authUser = this._authService.isUserRegistered();
     };
-    AuthenticationService.prototype.onLogin = function (email, password) {
+    ReaccioService.prototype.OpenSnackbar = function (message) {
         return __awaiter(this, void 0, void 0, function () {
-            var url, b, body;
+            var toast;
             return __generator(this, function (_a) {
-                url = environment_1.environment.api + '/login';
-                b = false;
-                body = {
-                    email: email,
-                    password: password
-                };
-                this._httpClient.post(url, body)
-                    .subscribe(function (result) {
-                    console.log(result);
-                    if (result.code === 1) {
-                        localStorage.setItem('currentUser', JSON.stringify(result.row));
-                        console.log('logged in');
-                        b = true;
-                    }
-                });
-                return [2 /*return*/, b];
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this._toastController.create({
+                            message: message,
+                            duration: 3000
+                        })];
+                    case 1:
+                        toast = _a.sent();
+                        toast.present();
+                        return [2 /*return*/];
+                }
             });
         });
     };
-    AuthenticationService.prototype.onRegister = function (body) {
-        return __awaiter(this, void 0, void 0, function () {
-            var url, b;
-            return __generator(this, function (_a) {
-                url = environment_1.environment.api + '/register';
-                b = false;
-                this._httpClient.post(url, body)
-                    .subscribe(function (result) {
-                    console.log(result);
-                    localStorage.setItem('currentUser', JSON.stringify({ iduser: result.insertId, email: body.email }));
-                    b = true;
-                });
-                return [2 /*return*/, b];
-            });
-        });
-    };
-    AuthenticationService.prototype.onLogout = function () {
-        localStorage.removeItem('currentUser');
-        return true;
-    };
-    AuthenticationService = __decorate([
+    ReaccioService = __decorate([
         core_1.Injectable({
             providedIn: 'root'
         })
-    ], AuthenticationService);
-    return AuthenticationService;
+    ], ReaccioService);
+    return ReaccioService;
 }());
-exports.AuthenticationService = AuthenticationService;
+exports.ReaccioService = ReaccioService;

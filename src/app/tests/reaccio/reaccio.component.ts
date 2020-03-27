@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ReaccioService } from './reaccio.service';
 
 @Component({
   selector: 'app-reaccio',
@@ -7,11 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class ReaccioComponent implements OnInit {
+
+  authUser: boolean = false;
   level: number;
 
-  constructor() { }
+  constructor(
+    private _reaccioService: ReaccioService
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this._reaccioService.checkUserLogged();
+    this.authUser = this._reaccioService.authUser;
+    this.hasUpload = false;
+  }
+
   randomNumber: string;
   hasError: boolean = false;
   NumParty: number = 0;
@@ -21,20 +31,21 @@ export class ReaccioComponent implements OnInit {
   IncrementaContador: number = 0;
   gameOver: boolean = false;
   resultat: number = 0;
+  hasUpload: boolean;
 
   StartLevel() {
       let number = Math.trunc(Math.random() * 4000);
       this.NumParty++;
-      setTimeout(() => {  
+      setTimeout(() => {
       this.hasError = true;
       this.Timer = setInterval(() => {
         this.ContadorIntervals++;
-      }, 1);  
-    }, number);    
+      }, 1);
+    }, number);
 
   }
 
-  
+
   IntervalCount() {
     clearInterval(this.Timer);
     this.IncrementaContador += this.ContadorIntervals;
@@ -48,7 +59,7 @@ export class ReaccioComponent implements OnInit {
       this.resultat = Math.trunc(this.IncrementaContador / this.MaxParty);
     }
   }
-  
+
 
 
   formVisibility: boolean = false;
@@ -56,5 +67,10 @@ export class ReaccioComponent implements OnInit {
   ShowForm(){
     this.formVisibility = true;
     console.log(this.formVisibility)
+  }
+
+  Upload() {
+    this.hasUpload = true;
+    this._reaccioService.UploadProgress(this.resultat);
   }
 }

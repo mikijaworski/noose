@@ -22,6 +22,8 @@ export class NumbersComponent implements OnInit {
   gameOver: boolean = false;
   hasUpload: boolean = false;
 
+  maxTime: number;
+
   constructor(
     private _numbersService: NumbersService,
     private router: Router
@@ -30,6 +32,7 @@ export class NumbersComponent implements OnInit {
   ngOnInit() {
     this._numbersService.checkUserLogged();
     this.authUser = this._numbersService.authUser;
+    this.maxTime = 2000;
   }
 
   NextLevel() {
@@ -54,7 +57,7 @@ export class NumbersComponent implements OnInit {
     setTimeout(() => {
       this.startDisabled = true;
       this.numberDisapear = true;
-    }, 2000);
+    }, this.maxTime);
   }
 
   Check() {

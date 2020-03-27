@@ -8,15 +8,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 exports.__esModule = true;
 var core_1 = require("@angular/core");
 var RegisterComponent = /** @class */ (function () {
-    function RegisterComponent(_authService) {
+    function RegisterComponent(_authService, _router) {
         this._authService = _authService;
+        this._router = _router;
     }
     RegisterComponent.prototype.ngOnInit = function () {
     };
     RegisterComponent.prototype.onRegister = function () {
-        console.log('mierda');
         var form = { email: this.email, password: this.password, name: this.name };
-        this._authService.onRegister(form);
+        if (this._authService.onRegister(form)) {
+            this._router.navigate(['/main']);
+        }
     };
     RegisterComponent = __decorate([
         core_1.Component({

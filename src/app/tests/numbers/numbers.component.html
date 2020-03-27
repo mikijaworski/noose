@@ -1,27 +1,67 @@
 <app-menu title="Remember the numbers"></app-menu>
 <ion-content class="ion-text-center">
 
-  <p>Try to remember and then write the most numbers you can.</p>
-
-  <p>Actual Level {{level}}</p>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Current level {{level}}</ion-card-title>
+      <ion-card-subtitle>You will see numbers on the screen, just try to remeber them and then input the number to check if you remembered correctly.</ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
 
   <div *ngIf="!gameOver">
-    <div *ngIf="hasStarted">
-      <p *ngIf="!numberDisapear">{{randomNumber}}</p>
-      <ion-input type="tel" *ngIf="numberDisapear" [(ngModel)]="enteredNumber"></ion-input>
-    </div>
 
-    <ion-button (click)="StartLevel()" *ngIf="!hasStarted" disabled="{{startDisabled}}">Start</ion-button>
-    <ion-button (click)="Check()" *ngIf="numberDisapear">Check</ion-button>
+      <div *ngIf="hasStarted">
+
+        <ion-card *ngIf="!numberDisapear">
+          <ion-card-header>
+            <ion-card-title>{{randomNumber}}</ion-card-title>
+            <ion-card-subtitle>This is your number random.</ion-card-subtitle>
+          </ion-card-header>
+        </ion-card>
+
+        <div *ngIf="numberDisapear">
+
+          <ion-card>
+            <ion-card-header>
+              <ion-card-subtitle>Enter the number</ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-item>
+                <ion-label position="floating">Input the number</ion-label>
+                <ion-input type="tel" [(ngModel)]="enteredNumber" clearInput></ion-input>
+              </ion-item>
+            </ion-card-content>
+          </ion-card>
+
+          <ion-card>
+            <ion-card-content>
+              <ion-button (click)="Check()" *ngIf="numberDisapear">Check</ion-button>
+            </ion-card-content>
+          </ion-card>
+
+        </div>
+
+      </div>
+
+      <ion-card>
+        <ion-card-content>
+          <ion-button color="tertiary" (click)="StartLevel()" *ngIf="!hasStarted" disabled="{{startDisabled}}">Start Game</ion-button>
+          <ion-button [routerLink]="'/ranking/numbers/level'">Ranking</ion-button>
+        </ion-card-content>
+      </ion-card>
+
   </div>
 
-  <div *ngIf="gameOver">
-    <h1>GAME OVER</h1>
-    <ion-button (click)="Reset()">Reset</ion-button>
+  <ion-card *ngIf="gameOver">
+    <ion-card-header>
+      <ion-card-title>GAME OVER</ion-card-title>
+      <ion-card-subtitle>You FAILED but you can try again or you can upload your progress to save it.</ion-card-subtitle>
+    </ion-card-header>
 
-    <ion-button (click)="Upload()" disabled="{{hasUpload}}" *ngIf="authUser">Upload</ion-button>
-  </div>
-
-  <ion-button>Ranking</ion-button>
+    <ion-card-content>
+      <ion-button (click)="Reset()">Reset</ion-button>
+      <ion-button (click)="Upload()" disabled="{{hasUpload}}" *ngIf="authUser">Upload</ion-button>
+    </ion-card-content>
+  </ion-card>
 
 </ion-content>

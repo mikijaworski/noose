@@ -1,19 +1,58 @@
 <app-menu title="Reaction"></app-menu>
-<ion-content>
-  <h1>Reaction time test</h1>
-  <p>When the red box turns green, click as quickly as you can.</p>
-  <p>Click anywhere to start.</p>
+<ion-content class="ion-text-center">
+  <!-- <h1>Reaction time test</h1> -->
+  <!-- <p>When the red box turns green, click as quickly as you can.</p> -->
+  <!-- <p>Click anywhere to start.</p> -->
 
-  <ion-button (click)="ShowForm();StartLevel()"  *ngIf="!formVisibility">Start Game</ion-button>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Reaction time test</ion-card-title>
+      <ion-card-subtitle>
+        <p>When the red box turns green, click as quickly as you can.</p>
+        <p>Click anywhere to start.</p>
+      </ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
+
   <div *ngIf="formVisibility">
-  <div [style.background-color]="'red'" style="height:200px" *ngIf="!hasError" class="ion-text-center" >
-    <h3>Wait...</h3>   
+
+    <ion-card *ngIf="!hasError">
+      <ion-card-content>
+        <div [style.background-color]="'red'" style="height:200px" class="ion-text-center" >
+          <h3>Wait...</h3>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+
+    <ion-card *ngIf="hasError">
+      <ion-card-content>
+        <div [style.background-color]="'green'" style="height:200px" (click)="IntervalCount()" class="ion-text-center" >
+          <h3> CLICK ME!!</h3>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card *ngIf="gameOver">
+      <ion-card-header>
+        <ion-card-title>COMPLETED</ion-card-title>
+        <ion-card-subtitle>You time is {{resultat}}, you can upload your progress to save it.</ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+        <!-- <ion-button (click)="Reset()">Reset</ion-button> -->
+        <ion-button (click)="Upload()" disabled="{{hasUpload}}" *ngIf="authUser">Upload</ion-button>
+      </ion-card-content>
+    </ion-card>
+
   </div>
-  <div [style.background-color]="'green'" style="height:200px" *ngIf="hasError" (click)="IntervalCount()" class="ion-text-center" >
-    <h3> CLICK ME!!</h3>
-  </div>
-  <div *ngIf="gameOver" class="ion-text-center">
-    <h1>{{resultat}}</h1>
-  </div>
-</div>
+
+  <ion-card>
+    <ion-card-content>
+      <ion-button (click)="ShowForm();StartLevel()" *ngIf="!formVisibility">Start Game</ion-button>
+      <ion-button [routerLink]="'/ranking/reaccio/temps'">Ranking</ion-button>
+    </ion-card-content>
+  </ion-card>
+
+
 </ion-content>
